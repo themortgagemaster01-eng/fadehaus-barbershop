@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { @apply bg-ink text-cream font-body antialiased; }
+  ::selection { background: #c9a24b; color: #141110; }
+}
+
+@layer components {
+  /* Barber-pole gold divider — the recurring signature motif */
+  .barber-rule {
+    height: 3px;
+    background-image: repeating-linear-gradient(
+      -45deg, #c9a24b 0 8px, #141110 8px 12px, #e0c079 12px 20px, #141110 20px 24px
+    );
+    background-size: 200% 100%;
+  }
+  .eyebrow { @apply font-label uppercase tracking-[0.3em] text-gold text-xs; }
+  .btn-gold {
+    @apply font-label font-semibold uppercase tracking-[0.14em] text-sm
+           bg-gradient-to-b from-goldbright to-gold text-ink px-8 py-4 rounded-sm
+           inline-flex items-center gap-2 transition-transform;
+  }
+  .btn-ghost {
+    @apply font-label font-semibold uppercase tracking-[0.14em] text-sm
+           border border-line text-cream px-7 py-4 rounded-sm
+           inline-flex items-center gap-2 transition-colors hover:border-gold hover:text-gold;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
