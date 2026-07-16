@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FadeHaus Barber Shop — Mahopac, NY</title>
+<meta name="description" content="FadeHaus Barber Shop in Mahopac, NY. Sharp fades, classic cuts, precision beard work. Walk-ins welcome, appointments available.">
+<meta name="theme-color" content="#0d0b09">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Anton&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0d0b09; --ink2:#141210; --panel:#1a1714;
+  --gold:#c9a24b; --gold-bright:#e3c069; --cream:#f2ebdd;
+  --muted:#a89e8d; --line:#2a251f;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--cream);font-family:'Inter',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+
+/* scroll progress */
+#progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--gold),var(--gold-bright));z-index:200}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;
+  padding:18px 6vw;transition:background .4s,padding .4s,border-color .4s;border-bottom:1px solid transparent}
+nav.scrolled{background:rgba(13,11,9,.85);backdrop-filter:blur(14px);border-bottom-color:var(--line);padding:12px 6vw}
+.brand{display:flex;align-items:center;gap:12px}
+.monogram{font-family:'Anton',sans-serif;font-size:28px;letter-spacing:-2px;color:var(--cream);
+  border:2px solid var(--gold);padding:2px 10px;line-height:1;border-radius:4px}
+.brand-txt{font-family:'Oswald',sans-serif;font-weight:700;letter-spacing:3px;font-size:15px}
+.brand-txt small{display:block;font-size:8px;letter-spacing:4px;color:var(--gold);font-weight:500}
+.navlinks{display:flex;gap:34px;font-family:'Oswald',sans-serif;font-weight:500;letter-spacing:1.5px;font-size:13px;text-transform:uppercase}
+.navlinks a{position:relative;padding:4px 0;color:var(--cream);opacity:.85;transition:opacity .3s}
+.navlinks a::after{content:'';position:absolute;left:0;bottom:-2px;width:0;height:2px;background:var(--gold);transition:width .3s}
+.navlinks a:hover{opacity:1}
+.navlinks a:hover::after{width:100%}
+.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px}
+.burger span{width:26px;height:2px;background:var(--gold);transition:.3s}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center}
+.hero-photo{position:absolute;inset:0;left:48%;background-image:linear-gradient(90deg,var(--ink) 0%,rgba(13,11,9,.15) 22%,rgba(13,11,9,0) 55%),url(data:image/jpeg;base64,);
+  background-size:cover;background-position:center;z-index:0}
+.hero-left{position:relative;z-index:2;padding:0 6vw;max-width:640px}
+.eyebrow{font-family:'Oswald',sans-serif;letter-spacing:5px;font-size:12px;color:var(--gold);text-transform:uppercase;margin-bottom:18px;opacity:0}
+.h-title{font-family:'Anton',sans-serif;line-height:.92;text-transform:uppercase;margin-bottom:22px}
+.h-title .l1{display:block;font-size:clamp(52px,8.5vw,120px);color:var(--cream);letter-spacing:-1px;
+  text-shadow:0 2px 30px rgba(0,0,0,.5)}
+.h-title .l2{display:block;font-size:clamp(30px,5.2vw,74px);color:var(--gold);letter-spacing:1px}
+.tagline{font-family:'Oswald',sans-serif;font-weight:600;font-size:clamp(20px,2.6vw,34px);line-height:1.2;margin-bottom:20px;color:var(--cream)}
+.subcopy{color:var(--muted);font-size:16px;line-height:1.6;margin-bottom:34px;max-width:420px}
+.cta-row{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:52px}
+.btn{font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:2px;text-transform:uppercase;font-size:14px;
+  padding:16px 28px;border-radius:2px;display:inline-flex;align-items:center;gap:10px;cursor:pointer;transition:transform .25s,box-shadow .25s,background .25s;border:none}
+.btn-gold{background:linear-gradient(180deg,var(--gold-bright),var(--gold));color:var(--ink);box-shadow:0 8px 30px rgba(201,162,75,.28)}
+.btn-gold:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(201,162,75,.42)}
+.btn-ghost{background:transparent;color:var(--cream);border:1px solid var(--line)}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+.btn .arrow{transition:transform .25s}
+.btn:hover .arrow{transform:translateX(4px)}
+.trust{display:flex;gap:40px;padding-top:30px;border-top:1px solid var(--line);max-width:480px}
+.trust-item{text-align:center}
+.trust-item svg{width:34px;height:34px;stroke:var(--gold);fill:none;stroke-width:1.4;margin:0 auto 10px}
+.trust-item p{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);line-height:1.3}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* SERVICES */
+section{padding:110px 6vw;position:relative}
+.sec-head{margin-bottom:60px}
+.sec-eyebrow{font-family:'Oswald',sans-serif;letter-spacing:5px;font-size:12px;color:var(--gold);text-transform:uppercase;margin-bottom:14px}
+.sec-title{font-family:'Anton',sans-serif;font-size:clamp(36px,5vw,68px);text-transform:uppercase;line-height:1;color:var(--cream)}
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:2px;background:var(--line);border:1px solid var(--line)}
+.svc{background:var(--ink2);padding:38px 32px;transition:background .35s,transform .35s}
+.svc:hover{background:var(--panel);transform:translateY(-4px)}
+.svc .num{font-family:'Oswald',sans-serif;color:var(--gold);font-size:13px;letter-spacing:2px;margin-bottom:20px}
+.svc h3{font-family:'Oswald',sans-serif;font-weight:700;font-size:22px;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.svc .price{font-family:'Anton',sans-serif;color:var(--gold-bright);font-size:32px;margin-bottom:14px}
+.svc p{color:var(--muted);font-size:14px;line-height:1.6}
+
+/* STRIP */
+.strip{background:var(--ink2);border-block:1px solid var(--line);display:flex;flex-wrap:wrap;justify-content:space-around;gap:30px;text-align:center;padding:70px 6vw}
+.stat .n{font-family:'Anton',sans-serif;font-size:clamp(40px,6vw,72px);color:var(--gold);line-height:1}
+.stat .l{font-family:'Oswald',sans-serif;letter-spacing:2px;font-size:13px;text-transform:uppercase;color:var(--muted);margin-top:8px}
+
+/* CONTACT */
+.contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+.info-line{display:flex;gap:16px;align-items:flex-start;margin-bottom:26px}
+.info-line svg{width:22px;height:22px;stroke:var(--gold);fill:none;stroke-width:1.5;flex-shrink:0;margin-top:2px}
+.info-line .lbl{font-family:'Oswald',sans-serif;letter-spacing:2px;font-size:11px;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
+.info-line .val{font-size:16px;color:var(--cream);line-height:1.5}
+.hours-row{display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--line);font-size:14px}
+.hours-row span:first-child{font-family:'Oswald',sans-serif;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+.hours-row.today span{color:var(--gold-bright)}
+.map-embed{border:1px solid var(--line);border-radius:4px;overflow:hidden;height:100%;min-height:340px}
+.map-embed iframe{width:100%;height:100%;border:0;filter:grayscale(.4) contrast(1.05)}
+
+/* FOOTER */
+footer{background:var(--ink2);border-top:1px solid var(--line);padding:50px 6vw;text-align:center}
+footer .fmono{font-family:'Anton',sans-serif;font-size:22px;color:var(--gold);letter-spacing:-1px}
+footer p{color:var(--muted);font-size:13px;margin-top:12px;line-height:1.7}
+.demo-tag{margin-top:20px;font-size:11px;color:#5c5348;letter-spacing:1px}
+
+/* concierge widget */
+#concierge{position:fixed;bottom:24px;right:24px;z-index:150}
+.chat-fab{width:60px;height:60px;border-radius:50%;background:linear-gradient(180deg,var(--gold-bright),var(--gold));
+  display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 10px 34px rgba(201,162,75,.4);transition:transform .3s}
+.chat-fab:hover{transform:scale(1.08)}
+.chat-fab svg{width:28px;height:28px;stroke:var(--ink);fill:none;stroke-width:2}
+.chat-panel{position:absolute;bottom:74px;right:0;width:330px;max-width:82vw;background:var(--ink2);border:1px solid var(--line);
+  border-radius:12px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.6);opacity:0;pointer-events:none;transform:translateY(14px) scale(.96);transition:.3s}
+.chat-panel.open{opacity:1;pointer-events:auto;transform:none}
+.chat-hd{background:var(--panel);padding:16px 18px;border-bottom:1px solid var(--line)}
+.chat-hd .t{font-family:'Oswald',sans-serif;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-size:15px}
+.chat-hd .s{font-size:11px;color:var(--gold);margin-top:2px}
+.chat-body{padding:16px;height:260px;overflow-y:auto;display:flex;flex-direction:column;gap:10px}
+.msg{padding:10px 14px;border-radius:12px;font-size:14px;line-height:1.5;max-width:86%}
+.msg.bot{background:var(--panel);align-self:flex-start;border-bottom-left-radius:3px}
+.msg.user{background:var(--gold);color:var(--ink);align-self:flex-end;border-bottom-right-radius:3px}
+.chips{display:flex;flex-wrap:wrap;gap:7px;padding:0 16px 12px}
+.chip{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:7px 12px;
+  border:1px solid var(--line);border-radius:20px;cursor:pointer;color:var(--muted);transition:.25s}
+.chip:hover{border-color:var(--gold);color:var(--gold)}
+
+@media(max-width:860px){
+  .navlinks{display:none}
+  .burger{display:flex}
+  .hero{grid-template-columns:1fr;min-height:auto;padding-top:120px;padding-bottom:70px}
+  .hero-photo{position:relative;left:0;height:280px;margin:30px 6vw 0;border-radius:6px;
+    background-image:linear-gradient(180deg,rgba(13,11,9,0),rgba(13,11,9,.2)),url(data:image/jpeg;base64,)}
+  .hero-left{padding:0 6vw}
+  .trust{gap:22px}
+  .contact-wrap{grid-template-columns:1fr}
+  .map-embed{min-height:260px}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+
+<nav id="nav">
+  <div class="brand">
+    <div class="monogram">FH</div>
+    <div class="brand-txt">FADEHAUS<small>BARBER SHOP</small></div>
+  </div>
+  <div class="navlinks">
+    <a href="#home">Home</a><a href="#services">Services</a><a href="#shop">Shop</a><a href="#about">About</a><a href="#contact">Contact</a>
+  </div>
+  <div class="burger" onclick="document.querySelector('.navlinks').style.display= (getComputedStyle(document.querySelector('.navlinks')).display==='none'?'flex':'none')">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<header class="hero" id="home">
+  <div class="hero-photo"></div>
+  <div class="hero-left">
+    <div class="eyebrow" id="eb">Mahopac, New York — Est. 2025</div>
+    <h1 class="h-title">
+      <span class="l1">FADEHAUS</span>
+      <span class="l2">Barber Shop</span>
+    </h1>
+    <div class="tagline reveal">Sharp Fades. Classic Cuts.<br>Timeless Confidence.</div>
+    <p class="subcopy reveal">Premium products. Expert craftsmanship. Built for the modern man — and everyone who walks through the door.</p>
+    <div class="cta-row reveal">
+      <a class="btn btn-gold" href="#contact">Book Your Fade <span class="arrow">&rarr;</span></a>
+      <a class="btn btn-ghost" href="#services">View Services <span class="arrow">&rarr;</span></a>
+    </div>
+    <div class="trust reveal">
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24"><path d="M12 2l2.4 5 5.6.8-4 4 1 5.6L12 20l-5 2.4 1-5.6-4-4 5.6-.8z"/></svg>
+        <p>Premium<br>Products</p>
+      </div>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24"><path d="M6 3l6 6 6-6M4 21l8-8 8 8"/><circle cx="12" cy="12" r="1.5"/></svg>
+        <p>Expert<br>Barbers</p>
+      </div>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24"><path d="M12 2l7 3v6c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V5z"/><path d="M9 12l2 2 4-4"/></svg>
+        <p>Quality You<br>Can Trust</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="services">
+  <div class="sec-head reveal">
+    <div class="sec-eyebrow">The Craft</div>
+    <h2 class="sec-title">Services & Pricing</h2>
+  </div>
+  <div class="svc-grid">
+    <div class="svc reveal"><div class="num">01</div><h3>Signature Fade</h3><div class="price">$30+</div><p>Precision skin, taper, or drop fade tailored to your head shape. Sharp lines, clean finish, hot-towel neck.</p></div>
+    <div class="svc reveal"><div class="num">02</div><h3>Cut & Beard</h3><div class="price">$50+</div><p>Full haircut paired with beard sculpt, line-up, and conditioning. The complete FadeHaus grooming session.</p></div>
+    <div class="svc reveal"><div class="num">03</div><h3>Beard Sculpt</h3><div class="price">$25+</div><p>Trim, shape, and razor detailing with premium oils and balm to keep facial hair looking its best.</p></div>
+    <div class="svc reveal"><div class="num">04</div><h3>Kids Cut</h3><div class="price">$25+</div><p>Patient, welcoming cuts for the young ones — 12 and under. First-timers get the full FadeHaus treatment.</p></div>
+    <div class="svc reveal"><div class="num">05</div><h3>Women's Cut</h3><div class="price">$55+</div><p>Cuts, blow-dries, and cut + style packages. Modern shaping with the same detail-obsessed craftsmanship.</p></div>
+    <div class="svc reveal"><div class="num">06</div><h3>The Full Works</h3><div class="price">$75+</div><p>Cut, beard, hot towel, and finish. The premium end-to-end experience for when you want to look your sharpest.</p></div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="stat reveal"><div class="n" data-count="5">0</div><div class="l">Star Rated</div></div>
+  <div class="stat reveal"><div class="n" data-count="7">0</div><div class="l">Days a Week</div></div>
+  <div class="stat reveal"><div class="n">All</div><div class="l">Ages Welcome</div></div>
+  <div class="stat reveal"><div class="n">Walk-in</div><div class="l">Or Book Ahead</div></div>
+</div>
+
+<section id="about">
+  <div class="contact-wrap">
+    <div class="reveal">
+      <div class="sec-eyebrow">The Vision</div>
+      <h2 class="sec-title" style="font-size:clamp(30px,4vw,52px);margin-bottom:24px">A Higher Standard<br>of Grooming</h2>
+      <p style="color:var(--muted);line-height:1.8;font-size:16px;margin-bottom:20px">FadeHaus isn't just about haircuts. It's a modern, upscale barbershop experience in the heart of Mahopac — the timeless craftsmanship of the classic barber chair, combined with a fresh, modern edge.</p>
+      <p style="color:var(--muted);line-height:1.8;font-size:16px">Whether you're stopping in for a quick fade or searching for your new go-to stylist, you'll leave looking sharp, feeling confident, and enjoying the vibe. That's the FadeHaus promise.</p>
+    </div>
+    <div class="reveal" style="border-left:2px solid var(--gold);padding-left:34px">
+      <p style="font-family:'Oswald',sans-serif;font-size:clamp(20px,2.4vw,28px);line-height:1.5;color:var(--cream);font-weight:500">"FadeHaus isn't just about haircuts — it's a higher standard of grooming."</p>
+      <p style="margin-top:20px;font-family:'Oswald',sans-serif;letter-spacing:2px;text-transform:uppercase;font-size:13px;color:var(--gold)">— Vinny Fidanza, Owner</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact" style="background:var(--ink2);border-top:1px solid var(--line)">
+  <div class="sec-head reveal">
+    <div class="sec-eyebrow">Come Through</div>
+    <h2 class="sec-title">Visit The Shop</h2>
+  </div>
+  <div class="contact-wrap">
+    <div class="reveal">
+      <div class="info-line">
+        <svg viewBox="0 0 24 24"><path d="M12 21s-7-5.5-7-11a7 7 0 0114 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+        <div><div class="lbl">Location</div><div class="val">987 US-6, Mahopac, NY 10541</div></div>
+      </div>
+      <div class="info-line">
+        <svg viewBox="0 0 24 24"><path d="M4 5a2 2 0 012-2h2l2 5-2 1a12 12 0 006 6l1-2 5 2v2a2 2 0 01-2 2A16 16 0 014 5z"/></svg>
+        <div><div class="lbl">Call / Text</div><div class="val">(845) 580-3566</div></div>
+      </div>
+      <div class="info-line">
+        <svg viewBox="0 0 24 24"><path d="M3 6h18v12H3z"/><path d="M3 7l9 6 9-6"/></svg>
+        <div><div class="lbl">Email</div><div class="val">fadehausbarbershop@yahoo.com</div></div>
+      </div>
+      <div style="margin-top:34px">
+        <div class="lbl" style="font-family:'Oswald',sans-serif;letter-spacing:2px;font-size:11px;text-transform:uppercase;color:var(--gold);margin-bottom:14px">Hours</div>
+        <div class="hours-row" data-day="1"><span>Monday</span><span>10:00 AM – 7:00 PM</span></div>
+        <div class="hours-row" data-day="2"><span>Tuesday</span><span>10:00 AM – 7:00 PM</span></div>
+        <div class="hours-row" data-day="3"><span>Wednesday</span><span>10:00 AM – 7:00 PM</span></div>
+        <div class="hours-row" data-day="4"><span>Thursday</span><span>10:00 AM – 7:00 PM</span></div>
+        <div class="hours-row" data-day="5"><span>Friday</span><span>10:00 AM – 7:00 PM</span></div>
+        <div class="hours-row" data-day="6"><span>Saturday</span><span>10:00 AM – 6:00 PM</span></div>
+        <div class="hours-row" data-day="0"><span>Sunday</span><span>10:00 AM – 4:00 PM</span></div>
+      </div>
+      <a class="btn btn-gold" href="tel:8455803566" style="margin-top:34px">Book Your Fade <span class="arrow">&rarr;</span></a>
+    </div>
+    <div class="map-embed reveal">
+      <iframe loading="lazy" src="https://www.google.com/maps?q=987+US-6,+Mahopac,+NY+10541&output=embed" title="FadeHaus location map"></iframe>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="fmono">FADEHAUS</div>
+  <p>987 US-6, Mahopac, NY 10541 &nbsp;•&nbsp; (845) 580-3566 &nbsp;•&nbsp; Walk-ins Welcome</p>
+  <p class="demo-tag">Concept demo by Obsidian Labs &nbsp;·&nbsp; obsidianlabshq.io</p>
+</footer>
+
+<div id="concierge">
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-hd"><div class="t">The Chair</div><div class="s">● FadeHaus concierge</div></div>
+    <div class="chat-body" id="chatBody">
+      <div class="msg bot">Welcome to FadeHaus. Ask me about hours, services, pricing, or how to book.</div>
+    </div>
+    <div class="chips">
+      <div class="chip" onclick="ask('hours')">Hours</div>
+      <div class="chip" onclick="ask('services')">Services</div>
+      <div class="chip" onclick="ask('price')">Pricing</div>
+      <div class="chip" onclick="ask('book')">Book</div>
+      <div class="chip" onclick="ask('where')">Location</div>
+    </div>
+  </div>
+  <div class="chat-fab" onclick="toggleChat()">
+    <svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 01-8 8H7l-4 3V12a8 8 0 018-8h2a8 8 0 018 8z"/></svg>
+  </div>
+</div>
+
+<script>
+// nav scroll state + progress
+const nav=document.getElementById('nav'),prog=document.getElementById('progress');
+window.addEventListener('scroll',()=>{
+  nav.classList.toggle('scrolled',window.scrollY>40);
+  const h=document.documentElement.scrollHeight-innerHeight;
+  prog.style.width=(scrollY/h*100)+'%';
+});
+// hero entrance
+window.addEventListener('load',()=>{
+  document.getElementById('eb').style.transition='opacity 1s .2s';document.getElementById('eb').style.opacity=1;
+  document.querySelectorAll('.hero .reveal').forEach((el,i)=>{setTimeout(()=>el.classList.add('in'),350+i*140)});
+});
+// scroll reveal
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.14});
+document.querySelectorAll('section .reveal, .strip .reveal').forEach(el=>io.observe(el));
+// counters
+const cio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const el=e.target,t=+el.dataset.count;let n=0;const s=setInterval(()=>{n++;el.textContent=n;if(n>=t)clearInterval(s)},90);cio.unobserve(el)}}),{threshold:.6});
+document.querySelectorAll('[data-count]').forEach(el=>cio.observe(el));
+// highlight today's hours
+document.querySelectorAll('.hours-row').forEach(r=>{if(+r.dataset.day===new Date().getDay())r.classList.add('today')});
+// concierge
+function toggleChat(){document.getElementById('chatPanel').classList.toggle('open')}
+function add(t,who){const b=document.getElementById('chatBody');const d=document.createElement('div');d.className='msg '+who;d.textContent=t;b.appendChild(d);b.scrollTop=b.scrollHeight}
+const R={
+ hours:"We're open Mon–Fri 10–7, Sat 10–6, Sun 10–4. Walk-ins welcome, but booking ahead guarantees your chair.",
+ services:"Fades, classic cuts, beard sculpts, kids' cuts, women's cuts & the Full Works. Men, women, and children all welcome.",
+ price:"Cuts start at $30, beard work from $25, cut+beard $50, and the Full Works at $75. Final price depends on the service.",
+ book:"Easiest way to book: call or text (845) 580-3566, or just walk in during shop hours. We'll get you in the chair.",
+ where:"You'll find us at 987 US-6, Mahopac, NY 10541 — right on Route 6. Parking out front."
+};
+function ask(k){add({hours:'What are your hours?',services:'What services do you offer?',price:'How much for a cut?',book:'How do I book?',where:'Where are you located?'}[k],'user');setTimeout(()=>add(R[k],'bot'),350)}
+</script>
+</body>
+</html>
