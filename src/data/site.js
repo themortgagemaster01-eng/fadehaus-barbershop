@@ -95,16 +95,20 @@ export const owner = {
   photoPlaceholder: true,
 }
 
-// Placeholder video — replace `src` with a real shop clip (MP4) or YouTube/Vimeo embed later.
+// Real shop walkthrough clip.
 export const video = {
-  isPlaceholder: true,
+  isPlaceholder: false,
+  src: `${import.meta.env.BASE_URL}showroom.mp4`,
+  poster: `${import.meta.env.BASE_URL}showroom-poster.jpg`,
   caption: 'A look inside FadeHaus',
-  note: 'Placeholder — drop in a real shop walkthrough or cut-in-progress clip here.',
+  note: 'A walkthrough of the shop.',
 }
 
 // Gallery: Pexels stock (free license) as placeholders. Swap for real shop photos on sign-off.
 // ratio drives the masonry tile height.
+// g10 is a real interior render of the shop (not stock) — the AI-generated showroom walkthrough still frame.
 export const galleryImages = [
+  { src: 'gallery/g10.jpg', alt: 'FadeHaus showroom interior', ratio: 1.5, isShopRender: true },
   { src: 'gallery/g1.jpg', alt: 'Fresh fade haircut', ratio: 1.5 },
   { src: 'gallery/g4.jpg', alt: 'Barber detailing a cut', ratio: 0.67 },
   { src: 'gallery/g2.jpg', alt: 'Clean lineup and taper', ratio: 1.5 },
