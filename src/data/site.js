@@ -29,14 +29,14 @@ export const hours = [
 
 // Pricing from the live site. VERIFY with owner before production.
 export const services = [
-  { name: "Men's Haircut",        price: '$35+', cat: 'men',   blurb: 'Classic and modern cuts — short back-and-sides to trendy skin fades. Sharp lines, clean finish.' },
-  { name: 'Haircut & Beard Trim', price: '$50+', cat: 'men',   blurb: 'A full cut paired with beard shaping and detailing. The complete FadeHaus grooming session.' },
-  { name: 'Shape Up',             price: '$25+', cat: 'men',   blurb: 'Crisp line-up and edge work to keep your look sharp between full cuts.' },
-  { name: 'Kids Cut',             price: '$30+', cat: 'kids',  blurb: 'Patient, welcoming cuts for the young ones, 12 and under.' },
-  { name: "Women's Haircut",      price: '$55+', cat: 'women', blurb: 'Modern shaping and styling with the same detail-obsessed craftsmanship.' },
-  { name: 'Cut & Blow Dry',       price: '$75+', cat: 'women', blurb: 'A cut finished with a professional blow-dry and style.' },
-  { name: 'Blow Dry',             price: '$40+', cat: 'women', blurb: 'A polished blow-dry and finish for any occasion.' },
-  { name: 'Beard Grooming',       price: '$25+', cat: 'men',   blurb: 'Trim, shape, and razor detailing with premium oils and balm.' },
+  { name: "Men's Haircut",        price: '$35+', cat: 'men',   blurb: 'Classic and modern cuts — short back-and-sides to trendy skin fades. Sharp lines, clean finish.', img: 'services/mens-haircut.jpg'  },
+  { name: 'Haircut & Beard Trim', price: '$50+', cat: 'men',   blurb: 'A full cut paired with beard shaping and detailing. The complete FadeHaus grooming session.', img: 'services/haircut-beard.jpg'  },
+  { name: 'Shape Up',             price: '$25+', cat: 'men',   blurb: 'Crisp line-up and edge work to keep your look sharp between full cuts.', img: 'services/shape-up.jpg'  },
+  { name: 'Kids Cut',             price: '$30+', cat: 'kids',  blurb: 'Patient, welcoming cuts for the young ones, 12 and under.', img: 'services/kids-cut.jpg'  },
+  { name: "Women's Haircut",      price: '$55+', cat: 'women', blurb: 'Modern shaping and styling with the same detail-obsessed craftsmanship.', img: 'services/womens-haircut.jpg'  },
+  { name: 'Cut & Blow Dry',       price: '$75+', cat: 'women', blurb: 'A cut finished with a professional blow-dry and style.', img: 'services/cut-blowdry.jpg'  },
+  { name: 'Blow Dry',             price: '$40+', cat: 'women', blurb: 'A polished blow-dry and finish for any occasion.', img: 'services/blowdry.jpg'  },
+  { name: 'Beard Grooming',       price: '$25+', cat: 'men',   blurb: 'Trim, shape, and razor detailing with premium oils and balm.', img: 'services/beard-grooming.jpg'  },
 ]
 
 export const perks = [
@@ -116,7 +116,7 @@ export const galleryImages = [
   { src: 'gallery/g3.jpg', alt: 'Classic barber chair', ratio: 1.5 },
   { src: 'gallery/g5.jpg', alt: 'Styling and finish', ratio: 0.67 },
   { src: 'gallery/g6.jpg', alt: 'Precision clipper work', ratio: 1.5 },
-  { src: 'gallery/g8.jpg', alt: 'Sharp modern cut', ratio: 0.67 },
+  { src: 'gallery/g8.jpg', alt: 'Comb and cut detail', ratio: 0.67 },
   { src: 'gallery/g9.jpg', alt: 'Finished look', ratio: 0.67 },
 ]
 export const galleryIsStock = true
