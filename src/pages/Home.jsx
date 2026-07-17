@@ -77,13 +77,24 @@ export default function Home() {
         <div className="mt-14 grid gap-px bg-line border border-line sm:grid-cols-2 lg:grid-cols-4">
           {featured.map((s, i) => (
             <Reveal key={s.name} delay={i * 0.08}>
-              <div className="h-full bg-ink2 p-8 transition-colors hover:bg-panel group">
-                <div className="flex items-center justify-between mb-5">
-                  <Scissors className="text-gold" size={26} />
-                  <span className="font-display text-gold text-xl">{s.price}</span>
+              <div className="h-full bg-ink2 transition-colors hover:bg-panel group overflow-hidden">
+                {s.img && (
+                  <div className="relative aspect-[4/3] overflow-hidden">
+                    <img
+                      src={`${import.meta.env.BASE_URL}${s.img}`}
+                      alt={s.name}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(20,17,16,0) 55%, rgba(20,17,16,.85) 100%)' }} />
+                    <Scissors className="absolute top-3 left-3 text-gold drop-shadow" size={22} />
+                    <span className="absolute top-3 right-3 font-display text-goldbright text-lg drop-shadow">{s.price}</span>
+                  </div>
+                )}
+                <div className="p-8">
+                  <h3 className="font-label font-bold uppercase tracking-wide text-lg">{s.name}</h3>
+                  <p className="mt-2 text-muted text-sm leading-relaxed">{s.blurb}</p>
                 </div>
-                <h3 className="font-label font-bold uppercase tracking-wide text-lg">{s.name}</h3>
-                <p className="mt-2 text-muted text-sm leading-relaxed">{s.blurb}</p>
               </div>
             </Reveal>
           ))}
