@@ -64,16 +64,15 @@ export const press = [
   },
 ]
 
-// PLACEHOLDER reviews — swap for real Google reviews via an embed once the owner is on board.
-// Kept obviously generic on purpose; do not present as real named customers.
 // Real Google reviews for FadeHaus Barber Shop (5.0 stars, 17 reviews as of Jul 2026).
 // Source: https://www.google.com/search?q=FadeHaus+Barber+Shop+987+US-6+Mahopac+NY+10541 (Google Business Profile)
 export const reviewsArePlaceholder = false
 export const googleRating = { stars: 5.0, count: 17 }
 export const reviews = [
   { text: "I cannot say how happy and excited I am to get my haircut from Vinny. This barbershop is by far the best in Mahopac and surrounding areas. Vinny is meticulous with his clients. He's personable and easy to talk to. I never feel rushed to get out of the chair and Vinny's attention to detail is above any other barber I've had in the area.", name: 'Brett Fazio', meta: 'Google Review' },
-  { text: "We took our grandson to Fade Haus today, for a haircut, and we all loved the cut! The barber was so professional and our grandson was totally at ease with him. The customer service and friendly staff make this a no brainer for return visits\u2026I can't leave a review without mentioning the decor \u2014 it is beyond fantastic. The chairs are replicas from \u2018days of old\u2019 barber chairs and they are stunning, in black and gold!", name: 'Diana Culhane', meta: 'Google Review \u00b7 Local Guide' },
+  { text: "We took our grandson to Fade Haus today, for a haircut, and we all loved the cut! The barber was so professional and our grandson was totally at ease with him. The customer service and friendly staff make this a no brainer for return visits…I can't leave a review without mentioning the decor — it is beyond fantastic. The chairs are replicas from ‘days of old’ barber chairs and they are stunning, in black and gold!", name: 'Diana Culhane', meta: 'Google Review · Local Guide' },
   { text: "My son's first time going and Vinny did an amazing job, took his time and is a perfectionist the best way.", name: 'Chrissy Simpson', meta: 'Google Review' },
+  { text: "It was my first time today. Such a nice place. The inside, black and gold decor, is just awesome. Great experience, great vibes. Friendly customer service and staff. Vinny is a very professional barber, he takes time and pays attention to detail. Highly recommended.", name: 'Pawel', meta: 'Google Review' },
 ]
 
 export const nav = [
