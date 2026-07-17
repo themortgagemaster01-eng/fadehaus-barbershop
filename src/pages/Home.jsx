@@ -1,6 +1,7 @@
+import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { ArrowRight, Scissors, Sparkles, ShieldCheck, Wallet, DoorOpen, Gift, Quote } from 'lucide-react'
+import { ArrowRight, Scissors, Sparkles, ShieldCheck, Wallet, DoorOpen, Gift, Quote, Volume2, VolumeX } from 'lucide-react'
 import Page from '../components/Page.jsx'
 import Reveal from '../components/Reveal.jsx'
 import SectionHeading from '../components/SectionHeading.jsx'
@@ -13,6 +14,14 @@ const perkIcons = { shield: ShieldCheck, wallet: Wallet, door: DoorOpen, gift: G
 
 export default function Home() {
   const featured = services.filter((s) => ['Men’s Haircut', "Men's Haircut", 'Haircut & Beard Trim', 'Beard Grooming', "Women's Haircut"].includes(s.name)).slice(0, 4)
+  const heroVideoRef = useRef(null)
+  const [heroMuted, setHeroMuted] = useState(true)
+  const toggleHeroSound = () => {
+    const v = heroVideoRef.current
+    if (!v) return
+    v.muted = !v.muted
+    setHeroMuted(v.muted)
+  }
 
   return (
     <Page>
@@ -20,8 +29,24 @@ export default function Home() {
       {/* ================= HERO ================= */}
       <section className="relative min-h-screen flex flex-col justify-end overflow-hidden">
         <div className="absolute inset-0">
-          <img src={`${import.meta.env.BASE_URL}hero-barber.jpg`} alt="A FadeHaus barber giving a fresh fade" className="h-full w-full object-cover object-[62%_28%] contrast-[1.08] saturate-[1.12] brightness-[1.06]" />
+          <video
+            ref={heroVideoRef}
+            src={`${import.meta.env.BASE_URL}hero-barber.mp4`}
+            poster={`${import.meta.env.BASE_URL}hero-barber-poster.jpg`}
+            className="h-full w-full object-cover object-[62%_28%] contrast-[1.08] saturate-[1.12] brightness-[1.06]"
+            autoPlay
+            loop
+            muted
+            playsInline
+          />
           <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(20,17,16,.5) 0%, rgba(20,17,16,.08) 38%, rgba(20,17,16,.78) 100%), linear-gradient(90deg, rgba(20,17,16,.78) 0%, rgba(20,17,16,.28) 46%, rgba(20,17,16,0) 100%)' }} />
+          <button
+            onClick={toggleHeroSound}
+            aria-label={heroMuted ? 'Turn on sound' : 'Mute sound'}
+            className="absolute bottom-6 right-6 z-20 w-11 h-11 rounded-full bg-ink/60 border border-gold/40 text-gold flex items-center justify-center backdrop-blur-sm hover:bg-ink/80 transition-colors"
+          >
+            {heroMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
+          </button>
         </div>
 
         <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pb-20 pt-32">
