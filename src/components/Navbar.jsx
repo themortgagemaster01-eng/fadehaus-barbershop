@@ -18,7 +18,7 @@ export default function Navbar() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-ink/90 backdrop-blur-md border-b border-line py-3' : 'py-5 border-b border-transparent'
+        scrolled ? 'glass py-3 border-x-0 border-t-0 rounded-none' : 'py-5 border-b border-transparent'
       }`}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6">
@@ -38,7 +38,7 @@ export default function Navbar() {
               {n.label}
             </NavLink>
           ))}
-          <a href={bookNow.href} className="font-label font-semibold uppercase tracking-wider text-[13px] bg-gradient-to-b from-goldbright to-gold text-ink px-5 py-2.5 rounded-sm hover:-translate-y-0.5 transition-transform">
+          <a href={bookNow.href} className="font-label font-semibold uppercase tracking-wider text-[13px] bg-gradient-to-b from-goldbright to-gold text-ink px-5 py-2.5 rounded-sm hover:-translate-y-0.5 hover:shadow-[0_0_20px_rgba(201,162,75,.55)] transition-all duration-300">
             {bookNow.label}
           </a>
         </nav>

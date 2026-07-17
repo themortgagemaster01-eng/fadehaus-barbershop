@@ -3,7 +3,7 @@ import { shop } from '../data/site.js'
 
 export default function Footer() {
   return (
-    <footer className="bg-ink2 border-t border-line">
+    <footer className="bg-ink2 border-t border-line pb-16 md:pb-0">
       <div className="barber-rule" />
       <div className="mx-auto max-w-6xl px-6 py-14 grid gap-10 md:grid-cols-3">
         <div>
