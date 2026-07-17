@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from 'framer-motion'
-import { ArrowRight, Scissors, Sparkles, ShieldCheck, Wallet, DoorOpen, Gift, Quote, Volume2, VolumeX, MapPin } from 'lucide-react'
+import { ArrowRight, Scissors, Sparkles, ShieldCheck, Wallet, DoorOpen, Gift, Quote, Volume2, VolumeX, MapPin, Star } from 'lucide-react'
 import Page from '../components/Page.jsx'
 import Reveal from '../components/Reveal.jsx'
 import SectionHeading from '../components/SectionHeading.jsx'
@@ -10,7 +10,8 @@ import FAQ from '../components/FAQ.jsx'
 import Seo from '../components/Seo.jsx'
 import TiltCard from '../components/TiltCard.jsx'
 import ReviewsCarousel from '../components/ReviewsCarousel.jsx'
-import { shop, services, perks, press, reviews, reviewsArePlaceholder } from '../data/site.js'
+import BookingWidget from '../components/BookingWidget.jsx'
+import { shop, services, perks, press, reviews, reviewsArePlaceholder, googleRating } from '../data/site.js'
 
 const perkIcons = { shield: ShieldCheck, wallet: Wallet, door: DoorOpen, gift: Gift }
 
@@ -58,6 +59,7 @@ export default function Home() {
             playsInline
           />
           <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(20,17,16,.5) 0%, rgba(20,17,16,.08) 38%, rgba(20,17,16,.78) 100%), linear-gradient(90deg, rgba(20,17,16,.78) 0%, rgba(20,17,16,.28) 46%, rgba(20,17,16,0) 100%)' }} />
+          <div className="absolute inset-0 hero-sweep" aria-hidden="true" />
         </motion.div>
 
         <button
@@ -99,6 +101,34 @@ export default function Home() {
             </div>
           </motion.div>
         </div>
+      </section>
+
+      {/* ================= TRUST BAR ================= */}
+      <section className="bg-ink2 border-y border-line">
+        <div className="mx-auto max-w-4xl px-6 py-6 flex flex-wrap items-center justify-center gap-x-10 gap-y-3 text-center">
+          <div className="flex items-center gap-2">
+            <Star className="text-gold fill-gold" size={18} />
+            <span className="font-label uppercase tracking-wide text-sm text-cream">{googleRating.stars.toFixed(1)} Google Rating</span>
+          </div>
+          <span className="hidden sm:block w-px h-4 bg-line" />
+          <div className="flex items-center gap-2">
+            <Quote className="text-gold" size={16} />
+            <span className="font-label uppercase tracking-wide text-sm text-cream">{googleRating.count} Reviews</span>
+          </div>
+          <span className="hidden sm:block w-px h-4 bg-line" />
+          <div className="flex items-center gap-2">
+            <MapPin className="text-gold" size={16} />
+            <span className="font-label uppercase tracking-wide text-sm text-cream">Trusted In Mahopac &amp; Beyond</span>
+          </div>
+        </div>
+      </section>
+
+      {/* ================= BOOKING WIDGET ================= */}
+      <section className="mx-auto max-w-6xl px-6 py-24">
+        <SectionHeading eyebrow="Skip The Wait" title="Book In Seconds" align="center" />
+        <Reveal delay={0.1} className="mt-12">
+          <BookingWidget />
+        </Reveal>
       </section>
 
       {/* ================= INTRO STRIP ================= */}
@@ -155,7 +185,7 @@ export default function Home() {
             const Icon = perkIcons[p.icon]
             return (
               <Reveal key={p.label} delay={i * 0.06}>
-                <div className="flex items-center gap-4 bg-panel border border-line rounded-sm p-5 h-full">
+                <div className="flex items-center gap-4 bg-panel border border-line rounded-sm p-5 h-full transition-all duration-300 hover:-translate-y-1 hover:border-gold/40 hover:shadow-[0_8px_24px_rgba(0,0,0,.3)]">
                   <Icon className="text-gold shrink-0" size={26} />
                   <span className="font-label uppercase tracking-wide text-sm">{p.label}</span>
                 </div>
@@ -171,7 +201,7 @@ export default function Home() {
         <div className="mt-14 grid gap-6 md:grid-cols-3">
           {press.map((p, i) => (
             <Reveal key={i} delay={i * 0.08}>
-              <figure className="h-full bg-ink2 border border-line rounded-sm p-8 flex flex-col">
+              <figure className="h-full bg-ink2 border border-line rounded-sm p-8 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:border-gold/40">
                 <Quote className="text-gold mb-4" size={26} />
                 <blockquote className="font-serif text-lg leading-relaxed flex-1">{p.quote}</blockquote>
                 <figcaption className="mt-5 eyebrow">{p.source}</figcaption>
