@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from 'framer-motion'
 import { ArrowRight, Scissors, Sparkles, ShieldCheck, Wallet, DoorOpen, Gift, Quote, Volume2, VolumeX } from 'lucide-react'
 import Page from '../components/Page.jsx'
 import Reveal from '../components/Reveal.jsx'
@@ -8,6 +8,8 @@ import SectionHeading from '../components/SectionHeading.jsx'
 import VideoBlock from '../components/VideoBlock.jsx'
 import FAQ from '../components/FAQ.jsx'
 import Seo from '../components/Seo.jsx'
+import TiltCard from '../components/TiltCard.jsx'
+import ReviewsCarousel from '../components/ReviewsCarousel.jsx'
 import { shop, services, perks, press, reviews, reviewsArePlaceholder } from '../data/site.js'
 
 const perkIcons = { shield: ShieldCheck, wallet: Wallet, door: DoorOpen, gift: Gift }
@@ -23,12 +25,28 @@ export default function Home() {
     setHeroMuted(v.muted)
   }
 
+  // Subtle cursor-driven parallax on the hero visual — a few px of drift,
+  // nothing distracting. Off entirely for prefers-reduced-motion.
+  const reduceMotion = useReducedMotion()
+  const px = useMotionValue(0.5)
+  const py = useMotionValue(0.5)
+  const heroX = useSpring(useTransform(px, [0, 1], [-14, 14]), { stiffness: 60, damping: 20 })
+  const heroY = useSpring(useTransform(py, [0, 1], [-10, 10]), { stiffness: 60, damping: 20 })
+  const handleHeroMove = (e) => {
+    if (reduceMotion) return
+    px.set(e.clientX / window.innerWidth)
+    py.set(e.clientY / window.innerHeight)
+  }
+
   return (
     <Page>
       <Seo title="FadeHaus Barber Shop — Mahopac, NY" description="A higher standard of grooming in Mahopac, NY. Sharp fades, classic cuts, and precision beard work. Open 7 days, walk-ins welcome." />
       {/* ================= HERO ================= */}
-      <section className="relative min-h-screen flex flex-col justify-end overflow-hidden">
-        <div className="absolute inset-0">
+      <section
+        className="relative min-h-screen flex flex-col justify-end overflow-hidden"
+        onMouseMove={handleHeroMove}
+      >
+        <motion.div className="absolute inset-0" style={reduceMotion ? undefined : { x: heroX, y: heroY, scale: 1.06 }}>
           <video
             ref={heroVideoRef}
             src={`${import.meta.env.BASE_URL}hero-barber.mp4`}
@@ -40,14 +58,15 @@ export default function Home() {
             playsInline
           />
           <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(20,17,16,.5) 0%, rgba(20,17,16,.08) 38%, rgba(20,17,16,.78) 100%), linear-gradient(90deg, rgba(20,17,16,.78) 0%, rgba(20,17,16,.28) 46%, rgba(20,17,16,0) 100%)' }} />
-          <button
-            onClick={toggleHeroSound}
-            aria-label={heroMuted ? 'Turn on sound' : 'Mute sound'}
-            className="absolute bottom-6 right-6 z-20 w-11 h-11 rounded-full bg-ink/60 border border-gold/40 text-gold flex items-center justify-center backdrop-blur-sm hover:bg-ink/80 transition-colors"
-          >
-            {heroMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
-          </button>
-        </div>
+        </motion.div>
+
+        <button
+          onClick={toggleHeroSound}
+          aria-label={heroMuted ? 'Turn on sound' : 'Mute sound'}
+          className="absolute bottom-6 right-6 z-20 w-11 h-11 rounded-full glass text-gold flex items-center justify-center hover:bg-ink/40 transition-colors"
+        >
+          {heroMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
+        </button>
 
         <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pb-20 pt-32">
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1 }}>
@@ -102,7 +121,7 @@ export default function Home() {
         <div className="mt-14 grid gap-px bg-line border border-line sm:grid-cols-2 lg:grid-cols-4">
           {featured.map((s, i) => (
             <Reveal key={s.name} delay={i * 0.08}>
-              <div className="h-full bg-ink2 transition-colors hover:bg-panel group overflow-hidden">
+              <TiltCard maxTilt={4} className="h-full bg-ink2 transition-colors hover:bg-panel group overflow-hidden">
                 {s.img && (
                   <div className="relative aspect-[4/3] overflow-hidden">
                     <img
@@ -120,7 +139,7 @@ export default function Home() {
                   <h3 className="font-label font-bold uppercase tracking-wide text-lg">{s.name}</h3>
                   <p className="mt-2 text-muted text-sm leading-relaxed">{s.blurb}</p>
                 </div>
-              </div>
+              </TiltCard>
             </Reveal>
           ))}
         </div>
@@ -162,7 +181,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ================= REVIEWS (placeholder) ================= */}
+      {/* ================= REVIEWS ================= */}
       <section className="bg-ink2 border-y border-line">
         <div className="mx-auto max-w-6xl px-6 py-24">
           <SectionHeading eyebrow="From The Chair" title="Client Reviews" align="center" />
@@ -171,18 +190,9 @@ export default function Home() {
               Placeholder content — real Google reviews embed here once connected.
             </p>
           )}
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {reviews.map((r, i) => (
-              <Reveal key={i} delay={i * 0.08}>
-                <div className="h-full bg-panel border border-line rounded-sm p-8">
-                  <div className="flex gap-1 mb-4 text-gold">{'★★★★★'}</div>
-                  <p className="text-cream/90 leading-relaxed">{r.text}</p>
-                  <p className="mt-5 font-label uppercase tracking-wide text-xs text-muted">{r.name}</p>
-                  <p className="text-[10px] text-muted/60 mt-1">{r.meta}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+          <Reveal delay={0.1} className="mt-12">
+            <ReviewsCarousel reviews={reviews} />
+          </Reveal>
         </div>
       </section>
 

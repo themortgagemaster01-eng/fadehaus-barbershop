@@ -2,6 +2,7 @@ import Page from '../components/Page.jsx'
 import PageHero from '../components/PageHero.jsx'
 import Seo from '../components/Seo.jsx'
 import Reveal from '../components/Reveal.jsx'
+import TiltCard from '../components/TiltCard.jsx'
 import { Package } from 'lucide-react'
 
 const items = [
@@ -23,7 +24,7 @@ export default function Products() {
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((it, i) => (
             <Reveal key={it.name} delay={(i % 3) * 0.06}>
-              <div className="bg-ink2 border border-line rounded-sm h-full overflow-hidden group">
+              <TiltCard className="glass rounded-sm h-full overflow-hidden group">
                 {it.img && (
                   <div className="relative aspect-[4/3] overflow-hidden">
                     <img
@@ -40,7 +41,7 @@ export default function Products() {
                   <h3 className="font-label uppercase tracking-wide text-lg">{it.name}</h3>
                   <p className="mt-2 text-muted text-sm">{it.note}</p>
                 </div>
-              </div>
+              </TiltCard>
             </Reveal>
           ))}
         </div>

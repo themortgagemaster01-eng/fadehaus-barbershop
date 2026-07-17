@@ -2,6 +2,7 @@ import Page from '../components/Page.jsx'
 import PageHero from '../components/PageHero.jsx'
 import Seo from '../components/Seo.jsx'
 import Reveal from '../components/Reveal.jsx'
+import TiltCard from '../components/TiltCard.jsx'
 import { services, perks } from '../data/site.js'
 
 const groups = [
@@ -14,34 +15,42 @@ export default function Services() {
   const base = import.meta.env.BASE_URL
   return (
     <Page>
-      <Seo title="Services & Pricing — FadeHaus Barber Shop" description="Haircuts, fades, beard grooming, women\u2019s and kids\u2019 cuts. See the full FadeHaus price list. Mahopac, NY." />
+      <Seo title="Services & Pricing — FadeHaus Barber Shop" description="Haircuts, fades, beard grooming, women’s and kids’ cuts. See the full FadeHaus price list. Mahopac, NY." />
       <PageHero eyebrow="Straightforward" title="Services & Pricing" sub="Prices start from the figures shown; final pricing depends on the service and length. Men, women, and kids all welcome." />
-      <section className="mx-auto max-w-4xl px-6 py-20 space-y-14">
+      <section className="mx-auto max-w-6xl px-6 py-20 space-y-16">
         {groups.map((g, gi) => (
-          <Reveal key={g.key} delay={gi * 0.05}>
-            <h2 className="font-label uppercase tracking-[0.2em] text-gold text-sm border-b border-line pb-3 mb-2">{g.title}</h2>
-            <div>
-              {services.filter((s) => s.cat === g.key).map((s) => (
-                <div key={s.name} className="flex items-center gap-5 py-4 border-b border-line/50">
-                  {s.img && (
-                    <img
-                      src={`${base}${s.img}`}
-                      alt={s.name}
-                      loading="lazy"
-                      className="w-16 h-16 sm:w-20 sm:h-20 rounded-sm object-cover border border-gold/30 shrink-0"
-                    />
-                  )}
-                  <div className="flex-1 flex items-baseline justify-between gap-6">
-                    <div>
-                      <div className="text-lg">{s.name}</div>
-                      <div className="text-muted text-sm mt-1">{s.blurb}</div>
+          <div key={g.key}>
+            <Reveal delay={gi * 0.05}>
+              <h2 className="font-label uppercase tracking-[0.2em] text-gold text-sm border-b border-line pb-3 mb-8">{g.title}</h2>
+            </Reveal>
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {services.filter((s) => s.cat === g.key).map((s, si) => (
+                <Reveal key={s.name} delay={si * 0.06}>
+                  <TiltCard className="glass rounded-md overflow-hidden h-full flex flex-col">
+                    {s.img && (
+                      <div className="relative aspect-[4/3] overflow-hidden">
+                        <img
+                          src={`${base}${s.img}`}
+                          alt={s.name}
+                          loading="lazy"
+                          className="h-full w-full object-cover"
+                        />
+                        <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(20,17,16,0) 55%, rgba(20,17,16,.75) 100%)' }} />
+                        <span className="absolute bottom-3 right-4 font-display text-goldbright text-2xl drop-shadow">{s.price}</span>
+                      </div>
+                    )}
+                    <div className="p-6 flex-1 flex flex-col">
+                      <div className="text-lg font-label tracking-wide">{s.name}</div>
+                      <p className="mt-2 text-muted text-sm leading-relaxed flex-1">{s.blurb}</p>
+                      {!s.img && (
+                        <div className="mt-4 font-display text-goldbright text-2xl">{s.price}</div>
+                      )}
                     </div>
-                    <div className="font-display text-goldbright text-2xl whitespace-nowrap">{s.price}</div>
-                  </div>
-                </div>
+                  </TiltCard>
+                </Reveal>
               ))}
             </div>
-          </Reveal>
+          </div>
         ))}
         <Reveal>
           <div className="flex flex-wrap gap-3 pt-4">
