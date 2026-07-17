@@ -4,6 +4,7 @@ import Navbar from './components/Navbar.jsx'
 import Footer from './components/Footer.jsx'
 import ScrollProgress from './components/ScrollProgress.jsx'
 import ConciergeChat from './components/ConciergeChat.jsx'
+import FloatingBookBar from './components/FloatingBookBar.jsx'
 import Home from './pages/Home.jsx'
 
 // Home loads eagerly (it's the landing page); the rest are code-split
@@ -31,6 +32,7 @@ export default function App() {
       </Suspense>
       <Footer />
       <ConciergeChat />
+      <FloatingBookBar />
     </>
   )
 }
