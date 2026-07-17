@@ -5,15 +5,16 @@ import Reveal from '../components/Reveal.jsx'
 import { Package } from 'lucide-react'
 
 const items = [
-  { name: 'Matte Pomade', note: 'Strong hold, natural finish' },
-  { name: 'Beard Oil', note: 'Conditioning, lightly scented' },
-  { name: 'Styling Clay', note: 'Flexible hold, low shine' },
-  { name: 'Sea Salt Spray', note: 'Texture and volume' },
-  { name: 'Beard Balm', note: 'Shape and soften' },
-  { name: 'Gift Certificate', note: 'Any service or product' },
+  { name: 'Matte Pomade', note: 'Strong hold, natural finish', img: 'products/pomade.jpg' },
+  { name: 'Beard Oil', note: 'Conditioning, lightly scented', img: 'products/beard-oil.jpg' },
+  { name: 'Styling Clay', note: 'Flexible hold, low shine', img: 'products/styling-clay.jpg' },
+  { name: 'Sea Salt Spray', note: 'Texture and volume', img: 'products/sea-salt-spray.jpg' },
+  { name: 'Beard Balm', note: 'Shape and soften', img: 'products/beard-balm.jpg' },
+  { name: 'Gift Certificate', note: 'Any service or product', img: 'products/gift-certificate.jpg' },
 ]
 
 export default function Products() {
+  const base = import.meta.env.BASE_URL
   return (
     <Page>
       <Seo title="Products — FadeHaus Barber Shop" description="Premium styling products stocked at FadeHaus Barber Shop, Mahopac, NY." />
@@ -22,10 +23,23 @@ export default function Products() {
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((it, i) => (
             <Reveal key={it.name} delay={(i % 3) * 0.06}>
-              <div className="bg-ink2 border border-line rounded-sm p-8 h-full">
-                <Package className="text-gold mb-4" size={26} />
-                <h3 className="font-label uppercase tracking-wide text-lg">{it.name}</h3>
-                <p className="mt-2 text-muted text-sm">{it.note}</p>
+              <div className="bg-ink2 border border-line rounded-sm h-full overflow-hidden group">
+                {it.img && (
+                  <div className="relative aspect-[4/3] overflow-hidden">
+                    <img
+                      src={`${base}${it.img}`}
+                      alt={it.name}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(20,17,16,0) 60%, rgba(20,17,16,.9) 100%)' }} />
+                    <Package className="absolute top-3 left-3 text-gold drop-shadow" size={22} />
+                  </div>
+                )}
+                <div className="p-8">
+                  <h3 className="font-label uppercase tracking-wide text-lg">{it.name}</h3>
+                  <p className="mt-2 text-muted text-sm">{it.note}</p>
+                </div>
               </div>
             </Reveal>
           ))}
