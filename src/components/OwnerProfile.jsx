@@ -9,14 +9,21 @@ export default function OwnerProfile() {
       <SectionHeading eyebrow="The Barber" title="Meet Vinny" />
       <div className="mt-14 grid gap-10 lg:grid-cols-[minmax(0,340px)_1fr] items-start">
         <Reveal>
-          <div className="aspect-[4/5] bg-ink2 border border-line rounded-sm flex flex-col items-center justify-center text-muted/40">
+          <div className="aspect-[4/5] bg-ink2 border border-line rounded-sm overflow-hidden flex flex-col items-center justify-center text-muted/40">
             {owner.photoPlaceholder ? (
               <>
                 <User size={40} />
                 <span className="mt-3 text-xs font-label uppercase tracking-widest">Owner Photo</span>
                 <span className="mt-1 text-[10px] text-muted/50">Add a real photo of Vinny</span>
               </>
-            ) : null}
+            ) : (
+              <img
+                src={`${import.meta.env.BASE_URL}${owner.photo}`}
+                alt={`${owner.name}, ${owner.role} at FadeHaus Barber Shop`}
+                loading="lazy"
+                className="h-full w-full object-cover"
+              />
+            )}
           </div>
         </Reveal>
         <Reveal delay={0.1}>
