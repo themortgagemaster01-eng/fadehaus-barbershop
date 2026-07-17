@@ -18,10 +18,19 @@ export default function Navbar() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled ? 'glass py-3 border-x-0 border-t-0 rounded-none' : 'py-5 border-b border-transparent'
+        scrolled ? 'glass border-x-0 border-t-0 rounded-none' : 'border-b border-transparent'
       }`}
     >
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6">
+      <div className="bg-gradient-to-b from-goldbright to-gold text-ink text-center py-[7px] px-4">
+        <p className="font-label text-[10px] sm:text-[11px] uppercase tracking-widest">
+          Demo site built by{' '}
+          <a href="https://obsidianlabshq.io" target="_blank" rel="noopener noreferrer" className="underline font-semibold hover:text-ink/70">
+            Obsidian Labs
+          </a>
+        </p>
+      </div>
+
+      <div className={`mx-auto max-w-6xl flex items-center justify-between px-6 transition-all duration-300 ${scrolled ? 'py-3' : 'py-5'}`}>
         <Logo onClick={() => setOpen(false)} />
 
         <nav className="hidden md:flex items-center gap-7">
