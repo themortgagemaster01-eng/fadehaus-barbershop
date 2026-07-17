@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from 'framer-motion'
-import { ArrowRight, Scissors, Sparkles, ShieldCheck, Wallet, DoorOpen, Gift, Quote, Volume2, VolumeX } from 'lucide-react'
+import { ArrowRight, Scissors, Sparkles, ShieldCheck, Wallet, DoorOpen, Gift, Quote, Volume2, VolumeX, MapPin } from 'lucide-react'
 import Page from '../components/Page.jsx'
 import Reveal from '../components/Reveal.jsx'
 import SectionHeading from '../components/SectionHeading.jsx'
@@ -68,7 +68,7 @@ export default function Home() {
           {heroMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
         </button>
 
-        <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pb-20 pt-32">
+        <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pb-20 pt-36">
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1 }}>
             <div className="eyebrow mb-5 flex items-center gap-3">
               <span className="w-7 h-px bg-gold" /> Mahopac, NY · Open 7 Days
@@ -212,6 +212,38 @@ export default function Home() {
           </Reveal>
         </div>
         <div className="barber-rule" />
+      </section>
+
+      {/* ================= FIND US (map) ================= */}
+      <section className="bg-ink2 border-t border-line">
+        <div className="mx-auto max-w-4xl px-6 py-20">
+          <SectionHeading eyebrow="Right On Route 6" title="Find Us" align="center" />
+          <Reveal delay={0.1} className="mt-10">
+            <a
+              href={`https://maps.google.com/?q=${encodeURIComponent(shop.address)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group block glass rounded-md overflow-hidden"
+            >
+              <div className="relative aspect-[4/5] sm:aspect-video overflow-hidden">
+                <img
+                  src={`${import.meta.env.BASE_URL}shop-map.jpg`}
+                  alt="Map showing FadeHaus Barber Shop at 987 US-6, Mahopac, NY"
+                  loading="lazy"
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(20,17,16,0) 60%, rgba(20,17,16,.85) 100%)' }} />
+              </div>
+              <div className="flex items-center justify-between gap-4 p-6">
+                <div className="flex items-center gap-3">
+                  <MapPin className="text-gold shrink-0" size={22} />
+                  <span className="text-cream">{shop.address}</span>
+                </div>
+                <span className="font-label uppercase tracking-wide text-xs text-gold shrink-0">Get Directions →</span>
+              </div>
+            </a>
+          </Reveal>
+        </div>
       </section>
     </Page>
   )
