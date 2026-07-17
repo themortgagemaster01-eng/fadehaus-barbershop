@@ -94,8 +94,8 @@ export const owner = {
   role: 'Owner & Master Barber',
   bio: "Vinny opened FadeHaus to bring a higher standard of grooming to Mahopac — a place where classic barbering craft meets a modern, upscale experience. Every cut is done with an eye for detail and a commitment to sending you out looking sharp and feeling confident.",
   quote: shop.vision,
-  // Swap for a real photo of Vinny on owner sign-off.
-  photoPlaceholder: true,
+  photoPlaceholder: false,
+  photo: 'vinny.jpg',
 }
 
 // Real shop walkthrough clip.
